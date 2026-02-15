@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Welcome Modal Demo</title>
+    <link rel="stylesheet" href="visitor-modal.css">
+    <!-- Google Fonts to match your theme -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Demo Content -->
+    <div class="demo-bg">
+        <h1>Welcome to My Portfolio</h1>
+        <p>Wait for 5 seconds to see the personalized magic happen...</p>
+    </div>
+
+    <!-- Modal Container -->
+    <div id="visitor-modal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-content">
+            <button class="close-button" aria-label="Close modal">&times;</button>
+            
+            <div class="modal-header">
+                <h2>Welcome <span id="visitor-location" class="highlight">Visitor</span>!</h2>
+            </div>
+            
+            <div class="modal-body">
+                <p id="visitor-message" class="typewriter-text">
+                    Loading your personalized experience...
+                </p>
+                
+                <div class="visitor-details">
+                    <div class="detail-item">
+                        <span class="label">City:</span>
+                        <span id="detail-city" class="value">...</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Provider:</span>
+                        <span id="detail-isp" class="value">...</span>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <a href="#" class="cta-btn primary">Connect on Socials</a>
+                    <a href="#" class="cta-btn secondary">Schedule Meeting</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="visitor-modal.js"></script>
+</body>
+</html>
