@@ -5,36 +5,19 @@
     position: fixed;
     width: 20px;
     height: 20px;
-    border: 2px solid var(--green);
     border-radius: 50%;
-    transform: translate(-50%, -50%);
+    background-color: rgba(100, 255, 218, 0.3);
     pointer-events: none;
     z-index: 9999;
-    transition: width 0.3s, height 0.3s, border-color 0.3s;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s, background-color 0.3s;
     mix-blend-mode: difference;
 }
 
-.custom-cursor-follower {
-    position: fixed;
-    width: 8px;
-    height: 8px;
-    background-color: var(--green);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: 9999;
-    transition: 0.1s;
-    mix-blend-mode: difference;
-}
-
-/* Hover states for cursor */
-a:hover ~ .custom-cursor,
-button:hover ~ .custom-cursor,
-.project-card:hover ~ .custom-cursor {
-    width: 40px;
-    height: 40px;
-    border-color: var(--green);
-    background-color: rgba(100, 255, 218, 0.1);
+.custom-cursor.hover {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(100, 255, 218, 0.2);
 }
 
 /* Loading Animation */
@@ -43,35 +26,112 @@ button:hover ~ .custom-cursor,
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background-color: var(--navy);
+    height: 100vh;
+    background-color: #0a192f;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+    transition: opacity 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .loader-container.hidden {
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
 }
 
-.loader {
-    width: 60px;
-    height: 60px;
-    border: 5px solid var(--lightest-navy);
-    border-top: 5px solid var(--green);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
+.loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+.loader-logo {
+    width: 200px;
+    height: 100px;
+    margin-bottom: 20px;
+    cursor: pointer;
 }
 
-/* Enhanced Animations */
+.logo-text {
+    fill: none;
+    stroke: #64ffda;
+    stroke-width: 1px;
+    stroke-dasharray: 500;
+    stroke-dashoffset: 500;
+    animation: logoTextAnimation 2s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+}
+
+.loader-logo:hover .logo-text {
+    animation: logoHoverAnimation 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+}
+
+@keyframes logoTextAnimation {
+    0% { opacity: 0; }
+    30% { opacity: 1; }
+    70% { stroke-dashoffset: 0; fill: transparent; }
+    100% { stroke-dashoffset: 0; fill: rgba(100, 255, 218, 0.7); }
+}
+
+@keyframes logoHoverAnimation {
+    0% { fill: rgba(100, 255, 218, 0.7); transform: translateY(0); }
+    50% { fill: rgba(100, 255, 218, 1); transform: translateY(-5px); }
+    100% { fill: rgba(100, 255, 218, 0.9); transform: translateY(0); }
+}
+
+.loader-details {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 16px;
+    color: #64ffda;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+    animation-delay: 1.8s;
+}
+
+.loader-progress {
+    width: 200px;
+    height: 2px;
+    background-color: rgba(100, 255, 218, 0.2);
+    margin-top: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.loader-progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    background-color: #64ffda;
+    animation: progressAnimation 2s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+}
+
+@keyframes fadeInUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes progressAnimation {
+    0% { width: 0; }
+    100% { width: 100%; }
+}
+
+/* Scroll-triggered animations */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .fade-in-up {
     opacity: 0;
     transform: translateY(20px);
@@ -89,19 +149,7 @@ button:hover ~ .custom-cursor,
 .delay-4 { transition-delay: 0.4s; }
 .delay-5 { transition-delay: 0.5s; }
 
-/* Scroll-triggered animations */
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Enhanced Mobile Menu */
+/* Overlay for Mobile Menu */
 .overlay {
     position: fixed;
     top: 0;
@@ -121,6 +169,7 @@ button:hover ~ .custom-cursor,
     visibility: visible;
 }
 
+/* Mobile Menu */
 .mobile-menu {
     display: flex;
     flex-direction: column;
@@ -163,7 +212,6 @@ button:hover ~ .custom-cursor,
     overflow: hidden;
 }
 
-
 /* Side Bars - Social and Email */
 .social-sidebar,
 .email-sidebar {
@@ -173,7 +221,6 @@ button:hover ~ .custom-cursor,
     z-index: 10;
 }
 
-/* Social Sidebar (Left) */
 .social-sidebar {
     left: 40px;
 }
@@ -204,7 +251,6 @@ button:hover ~ .custom-cursor,
     display: inline-block;
 }
 
-/* Email Sidebar (Right) */
 .email-sidebar {
     right: 40px;
     display: flex;
@@ -229,7 +275,6 @@ button:hover ~ .custom-cursor,
     transform: translateY(-3px);
 }
 
-/* Shared Line Styling */
 .sidebar-line {
     width: 1px;
     height: 90px;
@@ -237,7 +282,6 @@ button:hover ~ .custom-cursor,
     margin: 0 auto;
 }
 
-/* Media Query for Mobile */
 @media (max-width: 768px) {
     .social-sidebar,
     .email-sidebar {
@@ -245,157 +289,7 @@ button:hover ~ .custom-cursor,
     }
 }
 
-/* Loading Animation */
-.loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #0a192f;
-    z-index: 99;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
-}
-
-.loader.hidden {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.loader-logo {
-    width: 100px;
-    height: 100px;
-    stroke: #64ffda;
-    stroke-width: 2px;
-    fill: none;
-    animation: logoAnimation 2.5s ease-in-out forwards;
-}
-
-@keyframes logoAnimation {
-    0% {
-        opacity: 0;
-        stroke-dasharray: 1000;
-        stroke-dashoffset: 1000;
-        transform: scale(0.8);
-    }
-    30% {
-        opacity: 1;
-    }
-    70% {
-        stroke-dashoffset: 0;
-        fill: transparent;
-    }
-    90% {
-        fill: rgba(100, 255, 218, 0.2);
-        transform: scale(1);
-    }
-    100% {
-        fill: rgba(100, 255, 218, 0.9);
-        stroke-dashoffset: 0;
-        transform: scale(1.1);
-    }
-}
-
-/* Custom Cursor */
-.custom-cursor {
-    position: fixed;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: rgba(100, 255, 218, 0.3);
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: width 0.3s, height 0.3s, background-color 0.3s;
-    mix-blend-mode: difference;
-}
-
-.custom-cursor.hover {
-    width: 50px;
-    height: 50px;
-    background-color: rgba(100, 255, 218, 0.2);
-}
-
-/* Full-screen Loader (Brittany Chiang style) */
-.loader-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: #0a192f;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    transition: opacity 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-.loader-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.loader-logo {
-    width: 200px;
-    height: 100px;
-    margin-bottom: 20px;
-    cursor: pointer;
-}
-
-.logo-text {
-    fill: none;
-    stroke: #64ffda;
-    stroke-width: 1px;
-    stroke-dasharray: 500;
-    stroke-dashoffset: 500;
-    animation: logoTextAnimation 2s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
-}
-
-/* Logo hover animation */
-.loader-logo:hover .logo-text {
-    animation: logoHoverAnimation 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
-}
-
-@keyframes logoTextAnimation {
-    0% {
-        opacity: 0;
-    }
-    30% {
-        opacity: 1;
-    }
-    70% {
-        stroke-dashoffset: 0;
-        fill: transparent;
-    }
-    100% {
-        stroke-dashoffset: 0;
-        fill: rgba(100, 255, 218, 0.7);
-    }
-}
-
-@keyframes logoHoverAnimation {
-    0% {
-        fill: rgba(100, 255, 218, 0.7);
-        transform: translateY(0);
-    }
-    50% {
-        fill: rgba(100, 255, 218, 1);
-        transform: translateY(-5px);
-    }
-    100% {
-        fill: rgba(100, 255, 218, 0.9);
-        transform: translateY(0);
-    }
-}
-
-/* Also add this animation to the header logo */
-/* Update the logo styling to remove the circle */
+/* Header Logo */
 .logo {
     font-family: 'Roboto Mono', monospace;
     font-weight: 700;
@@ -403,7 +297,6 @@ button:hover ~ .custom-cursor,
     color: #64ffda;
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-    /* Remove any border-radius, background, or border properties */
     border: none;
     background: none;
     border-radius: 0;
@@ -413,71 +306,159 @@ button:hover ~ .custom-cursor,
 .logo:hover {
     color: #64ffda;
     transform: translateY(-3px);
-    /* Ensure no background or border appears on hover */
     background: none;
     border: none;
     box-shadow: none;
 }
 
-/* If there's a ::before pseudo-element with a circle */
 .logo::before {
     content: "Edree0x";
-    /* Remove any styling that creates a circle */
     background: none;
     border-radius: 0;
     border: none;
     padding-left: 60px;
 }
 
-.loader-details {
-    font-family: 'Roboto Mono', monospace;
-    font-size: 16px;
-    color: #64ffda;
-    text-align: center;
-    opacity: 0;
-    transform: translateY(10px);
-    animation: fadeInUp 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
-    animation-delay: 1.8s;
+/* ============ UX / Responsiveness Enhancements ============ */
+
+/* Social sidebar: consistent icon sizing */
+.social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    line-height: 1;
+    border-radius: 50%;
+    transition: color 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-.loader-progress {
-    width: 200px;
-    height: 2px;
-    background-color: rgba(100, 255, 218, 0.2);
-    margin-top: 15px;
-    position: relative;
-    overflow: hidden;
+.social-icons li {
+    margin-bottom: 12px;
 }
 
-.loader-progress-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 0;
-    background-color: #64ffda;
-    animation: progressAnimation 2s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
-}
+/* Comfortable touch target on smaller laptops / tablets
+   where the fixed sidebar still shows */
+@media (max-width: 1080px) {
+    .social-sidebar {
+        left: 16px;
+    }
 
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    .email-sidebar {
+        right: 16px;
+    }
+
+    .social-icons {
+        gap: 6px;
+    }
+
+    .social-icons li {
+        margin-bottom: 8px;
+    }
+
+    .social-icons a {
+        width: 38px;
+        height: 38px;
+        font-size: 19px;
     }
 }
 
-@keyframes progressAnimation {
-    0% {
-        width: 0;
+/* Larger touch targets on coarse-pointer (touch) devices */
+@media (pointer: coarse) {
+    .social-icons a,
+    footer .social-links a {
+        min-width: 44px;
+        min-height: 44px;
+        padding: 12px;
     }
-    100% {
-        width: 100%;
+
+    .nav-links a,
+    .mobile-nav-links a {
+        padding-top: 12px;
+        padding-bottom: 12px;
     }
 }
 
-/* Hide loader after animation */
-.loader-container.hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+/* Footer social links: align and size for all screens */
+footer .social-links {
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 0 16px;
+}
+
+footer .social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+/* Footer on small screens: prevent crowding */
+@media (max-width: 480px) {
+    footer .social-links {
+        gap: 2px;
+    }
+
+    footer .social-links a {
+        padding: 8px;
+        font-size: 17px;
+    }
+
+    footer {
+        padding: 20px 12px;
+    }
+}
+
+/* Ensure the WhatsApp/external links in service cards stay usable */
+.project-links a {
+    min-width: 44px;
+    min-height: 44px;
+}
+
+/* Smooth scroll offset already handled via scroll-margin-top; ensure header CTA wraps cleanly */
+.nav-links li {
+    white-space: nowrap;
+}
+
+/* Mobile menu links: full-width touch rows with adequate spacing */
+.mobile-nav-links a {
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+/* Visible focus state for keyboard users (a11y) */
+a:focus-visible,
+button:focus-visible,
+.tab-button:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 2px;
+}
+
+/* Ensure custom cursor never blocks clicks on touch-first layouts */
+@media (hover: none) {
+    .custom-cursor {
+        display: none;
+    }
+}
+
+/* Prevent nav crowding on small-to-medium screens where
+   the full nav-links are still visible */
+@media (max-width: 1080px) and (min-width: 769px) {
+    .nav-links li {
+        margin: 0 8px;
+    }
+
+    .nav-links a {
+        padding: 8px;
+        font-size: 13px;
+    }
+
+    .ios-toggle {
+        margin-left: 8px;
+    }
+
+    nav {
+        padding: 0 30px;
+    }
 }

@@ -61,14 +61,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileLinks = document.querySelectorAll('.mobile-nav-link');
     mobileLinks.forEach(link => {
         link.addEventListener('click', (e) => {
-            // Check if this is a versions dropdown trigger
-            const parentLi = link.closest('.mobile-versions-dropdown');
-            if (parentLi) {
-                e.preventDefault();
-                parentLi.classList.toggle('active');
-                return;
-            }
-            
             toggleMenu();
             // Smooth scroll for mobile
             const target = document.querySelector(link.getAttribute('href'));

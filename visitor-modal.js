@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Set the personalized message
-        messageEl.textContent = `Hello! Based on your location in ${visitorData.city}, you are just 10 minutes away from connecting with me on my social media platforms, and only 3 minutes away from scheduling an official meeting with me.`;
+        messageEl.textContent = `Welcome! I'm Ahmed — a software engineer who helps businesses grow with modern websites, custom business systems, and practical tech advice. I'm currently taking on new projects, so if you have an idea in mind, let's build it together.`;
     }
 
     /**
@@ -100,8 +100,13 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.setAttribute('aria-hidden', 'true');
     }
 
-    // Initialize
+    // Initialize — only show the modal once per visitor to avoid being annoying
     setTimeout(async () => {
+        if (localStorage.getItem('visitorModalSeen')) {
+            return;
+        }
+        localStorage.setItem('visitorModalSeen', 'true');
+
         // Start fetching data
         await fetchVisitorData();
 
